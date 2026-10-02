@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Boardroom Speaker Picks</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one-column briefing. Bottom line first (3 scenario cards), then a wide comparison table in its own scroller, then setup notes. */
+:root{
+  --bg:#F3F5F7; --surface:#FFFFFF; --surface-2:#E9EEF2; --fg:#15202B; --muted:#5B6B7A; --line:#D5DDE4;
+  --accent:#0E7C86; --accent-soft:#D9EEF0; --accent-ink:#FFFFFF;
+  --good:#1E7F4B; --good-soft:#DDF2E5; --ok:#A66A0E; --ok-soft:#FBEBD1; --bad:#B23A2E; --bad-soft:#F8DEDB;
+  --display:"Archivo",system-ui,"Segoe UI",sans-serif; --body:"Public Sans",system-ui,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0F161D; --surface:#17212B; --surface-2:#1F2B37; --fg:#E6ECF1; --muted:#9BAAB8; --line:#2B3946;
+  --accent:#4FC3CB; --accent-soft:#143A3F; --accent-ink:#06282B;
+  --good:#5CCB8A; --good-soft:#143524; --ok:#E3B05C; --ok-soft:#3A2B10; --bad:#F08A7E; --bad-soft:#3F1A16; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0F161D; --surface:#17212B; --surface-2:#1F2B37; --fg:#E6ECF1; --muted:#9BAAB8; --line:#2B3946;
+  --accent:#4FC3CB; --accent-soft:#143A3F; --accent-ink:#06282B;
+  --good:#5CCB8A; --good-soft:#143524; --ok:#E3B05C; --ok-soft:#3A2B10; --bad:#F08A7E; --bad-soft:#3F1A16; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 56px;padding-inline:clamp(16px,3vw,32px)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,4.2vw,42px);font-weight:800;letter-spacing:-0.01em;line-height:1.1}
+h2{font-size:21px;font-weight:700;margin-bottom:12px}
+h3{font-size:17px;font-weight:700}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.lede{max-width:68ch;margin-top:10px;font-size:16px}
+header{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between;margin-bottom:28px}
+.stamp{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stamp b{color:var(--fg);font-weight:600}
+section{margin-top:36px}
+
+/* Bottom-line cards */
+.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.pick{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.pick.lead{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.pick .tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.pick .name{font-family:var(--display);font-size:20px;font-weight:700;line-height:1.2}
+.pick .cost{font-family:var(--display);font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-0.01em}
+.pick .cost small{font-family:var(--body);font-size:13px;font-weight:500;color:var(--muted)}
+.pick p{margin:0;font-size:14px}
+.pick ul{margin:0;padding-left:18px;font-size:14px}
+.pick li{margin:2px 0}
+.pick .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px}
+.btn{display:inline-block;padding:7px 12px;border-radius:7px;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--surface-2);color:var(--fg)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:hover{text-decoration:none;filter:brightness(1.05)}
+.stars{font-variant-numeric:tabular-nums;white-space:nowrap}
+.stars b{font-weight:600}
+
+/* Comparison table */
+.scroller{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:1080px;font-size:13.5px}
+thead th{position:sticky;top:0;background:var(--surface-2);text-align:left;font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:12px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+tbody td{padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tbody tr.hl td{background:color-mix(in srgb,var(--accent-soft) 55%,var(--surface))}
+td.prod{min-width:230px}
+td.prod .n{font-weight:600;font-size:14.5px}
+td.prod .d{color:var(--muted);font-size:12.5px;margin-top:2px}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td .list{color:var(--muted);text-decoration:line-through;font-size:12px;margin-left:4px}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+td .sub{display:block;color:var(--muted);font-size:12px;margin-top:3px;white-space:normal}
+td.links a{display:block;white-space:nowrap;line-height:1.7}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;font-size:13px;color:var(--muted)}
+
+/* Notes */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
+.note ol,.note ul{margin:8px 0 0;padding-left:20px}
+.note li{margin:4px 0}
+.note p{margin:8px 0 0}
+.callout{border-left:4px solid var(--ok);background:var(--ok-soft);padding:12px 16px;border-radius:0 8px 8px 0;margin-top:16px}
+.callout.good{border-color:var(--good);background:var(--good-soft)}
+footer{margin-top:40px;font-size:12.5px;color:var(--muted);max-width:80ch}
+footer p{margin:6px 0}
+@media (max-width:640px){
+  .pick .cost{font-size:22px}
+  header{margin-bottom:20px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div>
+    <div class="eyebrow">Hotel board meeting · room about 1,000 sq ft</div>
+    <h1>Boardroom Speaker Picks</h1>
+    <p class="lede">Top-rated speakers that will fill a 1,000 sq ft conference room from a laptop, ranked for a board meeting: clear speech first, simple hookup second, music a distant third. One-box options and 3–4 speaker sets that link together.</p>
+  </div>
+  <div class="stamp">Prices and star ratings checked <b>Oct 2, 2026</b> on Amazon.com<br>Ratings shown are Amazon unless noted</div>
+</header>
+
+<section>
+  <h2>The bottom line</h2>
+  <div class="picks">
+    <article class="pick lead">
+      <span class="tag">★ Top pick · one speaker does it</span>
+      <div class="name">Bose S1 Pro+</div>
+      <div class="cost">$699 <small>one unit</small></div>
+      <div class="stars"><b>4.6★</b> 1,851 Amazon · <b>4.8★</b> 781 Best Buy</div>
+      <p>The speaker most presenters and small venues buy. One 14-lb box, 11-hour battery, and it is rated for audiences of 100+, so a 1,000 sq ft boardroom is easy. Plug your laptop in with a 3.5mm cable (no Bluetooth lag on video) or use Bluetooth for music. Two extra channels take a microphone if you ever want one.</p>
+      <ul>
+        <li>Simplest setup of anything here: one cable, one power cord</li>
+        <li>Mono, so no "stereo" effect; for speech that does not matter</li>
+        <li>Add the Bose wireless mic transmitter ($149) for a handheld mic</li>
+      </ul>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0BZWT5FRR">Amazon $699</a>
+        <a class="btn" href="https://www.bose.com/p/portable-pa/s1-pro-wireless-pa-system/S1PROP-SPEAKERWIRELESS-BLK-120V-AMER.html">Bose.com $699</a>
+        <a class="btn" href="https://www.bestbuy.com/site/6543828.p">Best Buy</a>
+        <a class="btn" href="https://www.guitarchalk.com/bose-s1-pro-plus-review/">Review</a>
+      </div>
+    </article>
+
+    <article class="pick">
+      <span class="tag">3–4 speaker set · what you asked for</span>
+      <div class="name">JBL Charge 6 × 3 or 4</div>
+      <div class="cost">$450 <small>for 3 · $600 for 4 ($149.95 each, list $199.95)</small></div>
+      <div class="stars"><b>4.6★</b> 6,983 Amazon · RTINGS tested</div>
+      <p>The best-reviewed speaker that links in a group. Three or four spread around the table give even, conversational-level sound everywhere, which suits a board table better than one loud box in a corner. They link over Bluetooth Auracast with one button press; one speaker connects to the laptop and the rest follow.</p>
+      <ul>
+        <li>24-hour battery, drop-proof, fits in a bag</li>
+        <li>Wired option: USB-C cable from laptop into the lead speaker</li>
+        <li>Expect a slight audio delay on video clips (Bluetooth)</li>
+      </ul>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0DN2ZCZX6">Amazon $149.95</a>
+        <a class="btn" href="https://www.bestbuy.com/site/searchpage.jsp?st=JBL+Charge+6">Best Buy</a>
+        <a class="btn" href="https://www.rtings.com/speaker/reviews/jbl/charge-6">RTINGS review</a>
+      </div>
+    </article>
+
+    <article class="pick">
+      <span class="tag">Step-up pair · loudest per dollar, has a mic jack</span>
+      <div class="name">JBL PartyBox Encore Essential 2 × 2</div>
+      <div class="cost">$500 <small>for 2 ($249.95 each, list $329.95)</small></div>
+      <div class="stars"><b>4.7★</b> 1,234 Amazon · RTINGS tested</div>
+      <p>Each one is a 100-watt speaker with a real microphone input and a 3.5mm aux jack. One alone fills the room; two link in stereo over Auracast. Highest Amazon rating of anything on this board. The light show turns off in the app.</p>
+      <ul>
+        <li>Wired aux from laptop into one, the second follows wirelessly</li>
+        <li>13 lb each, 12–15 hr battery, splash resistant</li>
+        <li>Best choice if you also want to use a mic without buying a PA</li>
+      </ul>
+      <div class="links">
+        <a class="btn primary" href="https://www.amazon.com/dp/B0DSJXBMTC">Amazon $249.95</a>
+        <a class="btn" href="https://www.bestbuy.com/site/searchpage.jsp?st=JBL+PartyBox+Encore+Essential+2">Best Buy</a>
+        <a class="btn" href="https://www.rtings.com/speaker/reviews/jbl/partybox-encore-essential-2">RTINGS review</a>
+      </div>
+    </article>
+  </div>
+  <div class="callout good"><b>If you only read one line:</b> buy the Bose S1 Pro+ and a $8 3.5mm cable. If you want speakers spread around the table, buy three JBL Charge 6.</div>
+</section>
+
+<section>
+  <h2>Full comparison</h2>
+  <div class="scroller">
+  <table>
+    <thead><tr>
+      <th>Speaker</th><th>Price</th><th>Rating</th><th>Fills 1,000 sq ft?</th><th>Links together</th><th>Wired from laptop</th><th>Battery</th><th>Weight</th><th>Buy</th><th>Reviews</th>
+    </tr></thead>
+    <tbody>
+      <tr class="hl">
+        <td class="prod"><div class="n">Bose S1 Pro+</div><div class="d">Portable PA, 3-channel mixer, mono</div></td>
+        <td class="num">$699</td>
+        <td class="num"><span class="stars"><b>4.6★</b> 1,851</span><span class="sub">Best Buy 4.8★ (781)</span></td>
+        <td><span class="pill good">Yes, one unit</span><span class="sub">Rated for 100+ person rooms</span></td>
+        <td>No wireless link<span class="sub">Second unit by cable (line out)</span></td>
+        <td>3.5mm aux + 2 mic/line jacks</td>
+        <td class="num">11 hr</td>
+        <td class="num">14.4 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B0BZWT5FRR">Amazon</a><a href="https://www.bose.com/p/portable-pa/s1-pro-wireless-pa-system/S1PROP-SPEAKERWIRELESS-BLK-120V-AMER.html">Bose.com</a><a href="https://www.bestbuy.com/site/6543828.p">Best Buy</a><a href="https://www.sweetwater.com/store/detail/S1ProPlus--bose-s1-pro-plus-wireless-pa-system">Sweetwater</a></td>
+        <td class="links"><a href="https://www.guitarchalk.com/bose-s1-pro-plus-review/">Guitar Chalk</a><a href="https://www.audiotechnology.com/reviews/bose-professional-s1-pro">AudioTechnology</a><a href="https://bestbuy.com/site/reviews/bose-s1-pro-portable-wireless-pa-system-black/6543828">Best Buy owners</a></td>
+      </tr>
+      <tr class="hl">
+        <td class="prod"><div class="n">JBL Charge 6</div><div class="d">Portable Bluetooth, Auracast, IP68</div></td>
+        <td class="num">$149.95<span class="list">$199.95</span></td>
+        <td class="num"><span class="stars"><b>4.6★</b> 6,983</span><span class="sub">Expert average 8.7/10</span></td>
+        <td><span class="pill good">Yes with 3–4</span><span class="sub">One alone is too small</span></td>
+        <td>Yes, many<span class="sub">Auracast: any Auracast JBL</span></td>
+        <td>USB-C audio (lossless)</td>
+        <td class="num">24 hr</td>
+        <td class="num">2.2 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B0DN2ZCZX6">Amazon</a><a href="https://www.bestbuy.com/site/searchpage.jsp?st=JBL+Charge+6">Best Buy</a><a href="https://www.jbl.com/bluetooth-speakers/CHARGE-6-.html">JBL.com</a></td>
+        <td class="links"><a href="https://www.rtings.com/speaker/reviews/jbl/charge-6">RTINGS</a><a href="https://theproductanalyst.com/speaker/jbl-charge-6-review/">Product Analyst</a></td>
+      </tr>
+      <tr class="hl">
+        <td class="prod"><div class="n">JBL PartyBox Encore Essential 2</div><div class="d">100 W party speaker, mic input, Auracast</div></td>
+        <td class="num">$249.95<span class="list">$329.95</span></td>
+        <td class="num"><span class="stars"><b>4.7★</b> 1,234</span></td>
+        <td><span class="pill good">Yes, one unit</span><span class="sub">Two for stereo</span></td>
+        <td>Yes, many<span class="sub">Auracast with other JBL</span></td>
+        <td>3.5mm aux + ¼" mic jack</td>
+        <td class="num">12–15 hr</td>
+        <td class="num">13 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B0DSJXBMTC">Amazon</a><a href="https://www.bestbuy.com/site/searchpage.jsp?st=JBL+PartyBox+Encore+Essential+2">Best Buy</a><a href="https://www.jbl.com/party-speakers/PARTYBOX-ENCORE-ESSENTIAL-2.html">JBL.com</a></td>
+        <td class="links"><a href="https://www.rtings.com/speaker/reviews/jbl/partybox-encore-essential-2">RTINGS</a><a href="https://shopsavvy.com/reviews-tldr/jbl-partybox-encore-essential-2-speaker.md">ShopSavvy TLDR</a></td>
+      </tr>
+      <tr>
+        <td class="prod"><div class="n">JBL Xtreme 4</div><div class="d">Big portable Bluetooth, Auracast, IP67</div></td>
+        <td class="num">$309.95<span class="list">$379.95</span></td>
+        <td class="num"><span class="stars"><b>4.7★</b> 2,843</span></td>
+        <td><span class="pill good">Yes with 2–3</span><span class="sub">Louder than Charge 6</span></td>
+        <td>Yes, many<span class="sub">Auracast</span></td>
+        <td>None (Bluetooth only)</td>
+        <td class="num">24 hr</td>
+        <td class="num">4.6 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B0CTP191Z3">Amazon</a><a href="https://www.bestbuy.com/site/searchpage.jsp?st=JBL+Xtreme+4">Best Buy</a></td>
+        <td class="links"><a href="https://rtings.com/speaker/reviews/jbl/xtreme-4">RTINGS</a><a href="https://www.whathifi.com/reviews/jbl-xtreme-4">What Hi-Fi</a><a href="https://www.techradar.com/audio/wireless-bluetooth-speakers/jbl-xtreme-4-review">TechRadar</a></td>
+      </tr>
+      <tr>
+        <td class="prod"><div class="n">JBL PartyBox Club 120</div><div class="d">160 W, swappable battery, mic + guitar inputs</div></td>
+        <td class="num">$349.95<span class="list">$449.95</span></td>
+        <td class="num"><span class="stars"><b>4.7★</b> 2,190</span><span class="sub">RTINGS music 7.7/10</span></td>
+        <td><span class="pill good">Yes, one unit</span><span class="sub">More than the room needs</span></td>
+        <td>Yes, many<span class="sub">Auracast</span></td>
+        <td>3.5mm aux + mic jacks</td>
+        <td class="num">12 hr</td>
+        <td class="num">24 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B0CTD6WMXT">Amazon</a><a href="https://www.bestbuy.com/site/searchpage.jsp?st=JBL+PartyBox+Club+120">Best Buy</a></td>
+        <td class="links"><a href="https://www.rtings.com/speaker/reviews/jbl/partybox-club-120">RTINGS</a></td>
+      </tr>
+      <tr>
+        <td class="prod"><div class="n">Bose SoundLink Max</div><div class="d">Premium portable, stereo inside one box</div></td>
+        <td class="num">$279<span class="list">$399</span></td>
+        <td class="num"><span class="stars"><b>4.4★</b> 2,607</span><span class="sub">Bose.com 4.6★ (783)</span></td>
+        <td><span class="pill ok">Yes with 2</span><span class="sub">Only two can link</span></td>
+        <td>2 max<span class="sub">Stereo or party mode, Bose app</span></td>
+        <td>3.5mm aux</td>
+        <td class="num">20 hr</td>
+        <td class="num">4.9 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B0CVL1K7DX">Amazon</a><a href="https://www.bose.com/p/speakers/bose-soundlink-max-portable-speaker/SLMAX-SPEAKERWIRELESS-BLK-NAPL.html">Bose.com $279</a></td>
+        <td class="links"><a href="https://www.sound-advice.online/product-reviews/bose-soundlink-max">Sound Advice</a></td>
+      </tr>
+      <tr>
+        <td class="prod"><div class="n">Sonos Era 100</div><div class="d">Wi-Fi home speaker, best pure sound per dollar</div></td>
+        <td class="num">$219<span class="sub">Era 100 SL $189 Amazon</span></td>
+        <td class="num"><span class="stars"><b>4.7★</b> Sonos.com</span><span class="sub">Amazon SL 4.5★ (384)</span></td>
+        <td><span class="pill ok">Yes with 2–4</span><span class="sub">Needs Wi-Fi you control</span></td>
+        <td>Unlimited<span class="sub">Over Wi-Fi only, Sonos app</span></td>
+        <td>USB-C line-in adapter ($19)</td>
+        <td class="num">None (plug in)</td>
+        <td class="num">4.4 lb</td>
+        <td class="links"><a href="https://www.sonos.com/en-us/shop/era-100">Sonos.com</a><a href="https://www.amazon.com/dp/B0GJ78MX2P">Amazon (SL)</a></td>
+        <td class="links"><a href="https://www.expertreviews.co.uk/technology/headphones-audio/sonos-era-100-review">Expert Reviews</a><a href="https://www.redsharknews.com/sonos-era-100-stereo-pair-review-how-do-they-compare-to-two-sonos-era-300s">RedShark (pair)</a></td>
+      </tr>
+      <tr>
+        <td class="prod"><div class="n">Ultimate Ears Everboom</div><div class="d">360° portable, PartyUp linking, IP67</div></td>
+        <td class="num">$149.99<span class="list">$178.99</span></td>
+        <td class="num"><span class="stars"><b>4.4★</b> 172</span><span class="sub">TechRadar, Tom's Guide positive</span></td>
+        <td><span class="pill ok">Yes with 3–4</span><span class="sub">Clarity drops at max volume</span></td>
+        <td>Yes, many<span class="sub">PartyUp with other UE</span></td>
+        <td>None (Bluetooth only)</td>
+        <td class="num">20 hr</td>
+        <td class="num">2.1 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B0BYC52LYP">Amazon</a></td>
+        <td class="links"><a href="https://www.techradar.com/audio/wireless-bluetooth-speakers/ultimate-ears-everboom-review">TechRadar</a><a href="https://tomsguide.com/audio/bluetooth-speakers/ultimate-ears-everboom-review">Tom's Guide</a></td>
+      </tr>
+      <tr>
+        <td class="prod"><div class="n">JBL Flip 7</div><div class="d">Small portable, Auracast</div></td>
+        <td class="num">$119.95<span class="list">$149.95</span></td>
+        <td class="num"><span class="stars"><b>4.5★</b> 4,866</span></td>
+        <td><span class="pill bad">Too small</span><span class="sub">Even four strain in this room</span></td>
+        <td>Yes, many<span class="sub">Auracast</span></td>
+        <td>USB-C audio</td>
+        <td class="num">14 hr</td>
+        <td class="num">1.2 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B0DMV3BMGP">Amazon</a></td>
+        <td class="links"><a href="https://www.rtings.com/speaker/reviews/jbl/flip-7">RTINGS</a></td>
+      </tr>
+      <tr>
+        <td class="prod"><div class="n">Mackie Thump GO</div><div class="d">8" battery PA, 200 W peak</div></td>
+        <td class="num">$449.99</td>
+        <td class="num"><span class="stars"><b>4.5★</b> 527</span></td>
+        <td><span class="pill good">Yes, one unit</span></td>
+        <td>2 max<span class="sub">Links to one more Thump GO</span></td>
+        <td>3.5mm aux + XLR/¼" combo jacks</td>
+        <td class="num">12 hr</td>
+        <td class="num">17 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B09CZH9B1Z">Amazon</a><a href="https://www.sweetwater.com/store/detail/ThumpGo--mackie-thump-go-battery-powered-loudspeaker">Sweetwater</a></td>
+        <td class="links"><a href="https://www.sweetwater.com/store/detail/ThumpGo--mackie-thump-go-battery-powered-loudspeaker/reviews">Sweetwater owners</a></td>
+      </tr>
+      <tr>
+        <td class="prod"><div class="n">JBL EON ONE Compact</div><div class="d">8" battery PA, 4-channel mixer</div></td>
+        <td class="num">$699</td>
+        <td class="num"><span class="stars"><b>3.9★</b> 674</span><span class="sub">Lowest owner rating here</span></td>
+        <td><span class="pill good">Yes, one unit</span></td>
+        <td>Up to 4<span class="sub">Bluetooth link between units</span></td>
+        <td>3.5mm aux + XLR/¼" combo jacks</td>
+        <td class="num">12 hr</td>
+        <td class="num">17.6 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B07Y2LYV34">Amazon</a><a href="https://www.sweetwater.com/store/detail/EONOneCompact--jbl-eon-one-compact-portable-pa-with-battery">Sweetwater</a></td>
+        <td class="links"><a href="https://guitar.com/reviews/amplifier/hands-on-jbl-eon-one-compact-review/">Guitar.com 8/10</a><a href="https://musictech.com/reviews/controllers/jbl-eon-one-compact-review/">MusicTech</a></td>
+      </tr>
+      <tr>
+        <td class="prod"><div class="n">Bose L1 Pro8</div><div class="d">Line-array PA, 180° coverage, plug-in only</div></td>
+        <td class="num">$1,499</td>
+        <td class="num"><span class="stars"><b>4.5★</b> 462</span><span class="sub">HomeDJStudio 9/10</span></td>
+        <td><span class="pill ok">Overkill</span><span class="sub">Built for 100–300 person venues</span></td>
+        <td>No wireless link</td>
+        <td>3.5mm aux + XLR/¼" combo jacks</td>
+        <td class="num">None (plug in)</td>
+        <td class="num">35 lb</td>
+        <td class="links"><a href="https://www.amazon.com/dp/B08JZK1R9C">Amazon</a></td>
+        <td class="links"><a href="https://homedjstudio.com/bose-l1-pro-8-review/">HomeDJStudio</a><a href="https://www.premierguitar.com/bose-l1-pro8-the-premier-guitar-review">Premier Guitar</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="legend"><span>Shaded rows = the three picks above.</span><span>"Links together" = how many of the same brand can play the same audio at once.</span><span>Sale prices move weekly; the Buy links show today's price.</span></div>
+</section>
+
+<section>
+  <h2>Before you buy: three things about hotel rooms</h2>
+  <div class="grid2">
+    <div class="note">
+      <h3>1. Ask the hotel first</h3>
+      <p>Most hotel conference rooms already have ceiling speakers with a laptop hookup (HDMI or 3.5mm) at the podium or wall plate. Ask the event coordinator for "house sound with a laptop input." It is often free or a small AV fee, and it beats anything on this list for even coverage. Bring your own speaker as the backup.</p>
+    </div>
+    <div class="note">
+      <h3>2. Use a cable for video, Bluetooth for music</h3>
+      <p>Bluetooth adds roughly a tenth of a second of delay. Fine for music and slides, but on a video clip the lips get ahead of the sound. Every pick above has a wired input: 3.5mm on the Bose and PartyBox, USB-C on the Charge 6. Pack a 3.5mm cable and a USB-C to 3.5mm adapter for the laptop ($10–20 total).</p>
+    </div>
+    <div class="note">
+      <h3>3. Skip anything that needs Wi-Fi</h3>
+      <p>Sonos speakers link over Wi-Fi, and hotel Wi-Fi with a login page will not let them join. Unless you bring your own travel router, choose a Bluetooth or wired option for a hotel. That is why Sonos sits lower on this board despite excellent sound.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Setup on meeting day</h2>
+  <div class="grid2">
+    <div class="note">
+      <h3>One-box setup (Bose S1 Pro+)</h3>
+      <ol>
+        <li>Charge it overnight; it also runs on wall power.</li>
+        <li>Set it at the front of the room on a table or stand, tilted toward the far end. Avoid corners.</li>
+        <li>Run the 3.5mm cable from the laptop headphone jack (or USB-C adapter) into the aux input. Or hold the Bluetooth button and pair from the laptop.</li>
+        <li>Set the speaker to about half volume, then set the laptop to full. Adjust from the speaker's knob during the meeting.</li>
+        <li>Test with a 20-second video clip from the back of the room 30 minutes before start.</li>
+      </ol>
+    </div>
+    <div class="note">
+      <h3>3–4 speaker setup (JBL Charge 6 or PartyBox)</h3>
+      <ol>
+        <li>Charge all units; label them 1–4 with tape.</li>
+        <li>Place one near each end of the table and one on each long side, at ear height, pointed inward.</li>
+        <li>Connect speaker 1 to the laptop (USB-C cable or Bluetooth).</li>
+        <li>Press the Auracast button on speaker 1, then on each other speaker. They join within a few seconds. The JBL Portable app shows the group and lets you balance volumes.</li>
+        <li>Keep total volume low. Four speakers at 30% sound better and clearer than one at 90%.</li>
+      </ol>
+      <div class="callout">Buy the same model for all units. JBL says any Auracast-enabled JBL speaker links with any other, but older PartyBoost models (Charge 5, Flip 6, Xtreme 3) will not join.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><b>How this was built.</b> Candidates came from 2026 "best portable PA" and "best linkable Bluetooth speaker" roundups and from RTINGS, What Hi-Fi, TechRadar, Guitar.com, Sound On Sound and HomeDJStudio reviews. Prices and owner star ratings were read live from Amazon.com product pages on Oct 2, 2026, with Bose.com, Sonos.com and Best Buy figures where noted. Room-fit calls are based on manufacturer coverage claims and reviewer loudness tests; a 1,000 sq ft room is roughly 25 × 40 ft and seats 15–30 at a board table.</p>
+  <p>Sources: <a href="https://roihacks.com/best-pa-speakers-for-business-seminars/">ROI Hacks seminar PA roundup</a> · <a href="https://www.outeraudio.com/bluetooth-speaker-latency-explained/">Outer Audio on Bluetooth delay</a> · <a href="https://www.androidauthority.com/how-to-connect-jbl-speakers-together-3301073">Android Authority on linking JBL speakers</a> · <a href="https://jblpro.com/en-US/products/eon-one-compact">JBL Pro EON ONE Compact specs</a></p>
+</footer>
+</div>
+
+</body>
+</html>
